@@ -3,7 +3,7 @@
 このファイルは「アプリの中身（企画）」ではなく、「開発を始めるまでの環境・アカウント準備」の進捗を記録するためのものです。企画内容は `shipaton_2026_project_plan.md`、法務文書は `privacy_policy_draft.md` / `terms_of_service_draft.md` を参照してください。
 
 締切：2026年9月30日 23:45（太平洋時間）／ 日本時間 10月1日 15:45頃
-最終更新：2026年8月31日
+最終更新：2026年9月1日
 
 ---
 
@@ -37,19 +37,19 @@
 
 ## 4. 実機iPhoneの確保
 
-- [ ] 検証用iPhoneのあて（自分／家族／友人）を確認
-- [ ] 確保完了
-- メモ：
+- [x] 検証用iPhoneのあて（自分／家族／友人）を確認
+- [x] 確保完了
+- メモ：自分個人のiPhoneを使用
 
 ## 5. コード・法務文書のリポジトリ化
 
-- [ ] プロジェクト用フォルダ作成
-- [ ] `shipaton_2026_project_plan.md` を配置
-- [ ] `privacy_policy_draft.md` / `terms_of_service_draft.md` を配置
-- [ ] GitHubリポジトリ作成（非公開でOK）
+- [x] プロジェクト用フォルダ作成
+- [x] `shipaton_2026_project_plan.md` を配置
+- [x] `privacy_policy_draft.md` / `terms_of_service_draft.md` を配置
+- [x] GitHubリポジトリ作成（`ryuryu0718/shipaton2026_app`）
 - [ ] プライバシーポリシー・利用規約公開用のGitHub Pages設定（後日でも可）
-- 完了日：
-- メモ：
+- 完了日：2026年9月1日（GitHub Pages設定を除く）
+- メモ：不要なzipファイルを削除済み
 
 ---
 
