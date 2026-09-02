@@ -9,14 +9,14 @@
 
 ## 1. Apple Developer Program登録
 
-- [ ] https://developer.apple.com/programs/enroll/ から登録開始
-- [ ] Apple ID（2ファクタ認証有効）を用意
-- [ ] Individual（個人）を選択
-- [ ] $99の支払い完了
+- [x] https://developer.apple.com/programs/enroll/ から登録開始
+- [x] Apple ID（2ファクタ認証有効）を用意（開発用に新規作成、普段使いのApple IDとは別）
+- [x] Individual（個人）を選択
+- [x] $99の支払い完了
 - [ ] 審査完了（メール通知を待つ／1〜2日程度）
-- 開始日：
+- 開始日：2026年9月2日
 - 完了日：
-- メモ：
+- メモ：審査待ち
 
 ## 2. PC側の開発環境準備
 
