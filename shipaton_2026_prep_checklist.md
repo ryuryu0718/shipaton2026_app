@@ -29,11 +29,11 @@
 
 ## 3. 各種アカウント作成
 
-- [ ] Expoアカウント作成（https://expo.dev/）
-- [ ] RevenueCatアカウント作成（https://www.revenuecat.com/）
-- [ ] `eas login` でログイン確認
-- 完了日：
-- メモ：
+- [x] Expoアカウント作成（https://expo.dev/）
+- [x] RevenueCatアカウント作成（https://www.revenuecat.com/）
+- [x] `eas login` でログイン確認
+- 完了日：2026年9月2日
+- メモ：`eas login`実行時、PowerShellの実行ポリシー制限でエラーが出たため`Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`で解消
 
 ## 4. 実機iPhoneの確保
 
