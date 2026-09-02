@@ -20,12 +20,12 @@
 
 ## 2. PC側の開発環境準備
 
-- [ ] Node.js（LTS版）インストール
-- [ ] Git インストール
-- [ ] （Windowsの場合）WSL2 セットアップ
-- [ ] Expo CLI / EAS CLI インストール（`npm install -g eas-cli`）
-- 完了日：
-- メモ（つまずいた点など）：
+- [x] Node.js（LTS版）インストール（v24.14.1、既存環境）
+- [x] Git インストール（v2.53.0、既存環境）
+- [x] （Windowsの場合）WSL2 セットアップ → 不要と判断（EAS Buildのクラウドビルドを使うため、Android実機/エミュレータテストの予定がなければスキップでOK）
+- [x] Expo CLI / EAS CLI インストール（EAS CLI v23.2.0をインストール、Expo CLIは`npx expo`で都度利用）
+- 完了日：2026年9月2日
+- メモ（つまずいた点など）：特になし
 
 ## 3. 各種アカウント作成
 
