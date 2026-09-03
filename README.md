@@ -1,25 +1,56 @@
-# Shipaton 2026 プロジェクト資料
+# Welcome to your Expo app 👋
 
-このフォルダは、Claudeとの壁打ちチャットで固めてきた企画・調査・法務ドラフトの記録一式です。GitHubリポジトリ直下（または `docs/` フォルダ）にそのまま置いてください。今後Claude Codeで開発を進める際も、このフォルダをプロジェクトの前提知識として読み込ませます。
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-締切：2026年9月30日 23:45（太平洋時間）
+## Get started
 
-## ファイル一覧
+1. Install dependencies
 
-| ファイル | 内容 | 更新状況 |
-|---|---|---|
-| `shipaton_2026_project_plan.md` | **企画書本体（最重要）**。コンセプト・機能・画面設計・マネタイズ・技術スタック・法務確認事項・MVPスコープなどを網羅した企画書 | 内容が固まるたびに更新中 |
-| `shukatsu_market_research.md` | 終活・自分史市場の競合調査（既存アプリの料金比較、隣接業界のマネタイズ事例、特許状況など） | 完了 |
-| `privacy_policy_draft.md` | プライバシーポリシーのドラフト（⚠️未レビュー、公開前に要専門家確認、［　］箇所は要記入） | ドラフト |
-| `terms_of_service_draft.md` | 利用規約のドラフト（⚠️未レビュー、公開前に要専門家確認、［　］箇所は要記入） | ドラフト |
-| `shipaton_2026_beginner_guide.md` | Mac不要（Expo + EAS Build）での開発・提出ロードマップ | 完了 |
-| `shipaton_2026_prep_checklist.md` | Apple Developer登録などの環境準備チェックリスト（進捗を随時更新） | 進行中 |
+   ```bash
+   npm install
+   ```
 
-## 使い方の目安
+2. Start the app
 
-- 企画内容を変更したいときは `shipaton_2026_project_plan.md` を更新
-- 開発の準備状況は `shipaton_2026_prep_checklist.md` にチェックを入れて記録
-- Claude Codeに開発を引き継ぐ際は、このフォルダごと読み込ませて「このプロジェクトの前提として読んでください」と伝える
+   ```bash
+   npx expo start
+   ```
 
----
-*このREADMEはClaudeとのチャット内容を整理したものです（作成：2026年9月1日時点）。*
+In the output, you'll find options to open the app in a
+
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## Get a fresh project
+
+When you're ready, run:
+
+```bash
+npm run reset-project
+```
+
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+
+### Other setup steps
+
+- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
+- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
+- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+
+## Learn more
+
+To learn more about developing your project with Expo, look at the following resources:
+
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+
+## Join the community
+
+Join our community of developers creating universal apps.
+
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
