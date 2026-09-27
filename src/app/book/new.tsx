@@ -21,6 +21,7 @@ import {
 } from '@/lib/books';
 import { formatRangeJa } from '@/lib/date';
 import { getEntryDateBounds, listEntriesWithRelationsInRange } from '@/lib/entries';
+import { usePurchases } from '@/lib/purchases';
 import { buildBookHtml, renderBookPdf } from '@/lib/pdf';
 import { selectHighlights } from '@/lib/summary';
 
@@ -29,6 +30,7 @@ type Kind = 'full' | 'summary';
 export default function NewBookScreen() {
   const theme = useTheme();
   const router = useRouter();
+  const { isPremium, isAvailable: purchasesAvailable, showPaywall } = usePurchases();
 
   const [kind, setKind] = useState<Kind>('full');
   const [fullRange, setFullRange] = useState<NextFullBookRange | null>(null);
@@ -61,8 +63,21 @@ export default function NewBookScreen() {
   const summaryRemaining = Math.max(0, FREE_SUMMARY_EXPORTS_PER_MONTH - summaryUsed);
 
   const canGenerateFull = fullEntryCount > 0;
-  const canGenerateSummary = Boolean(allBounds) && summaryRemaining > 0;
+  // プレミアムは要約版を無制限に作れる（企画書 6章）
+  const summaryLocked = !isPremium && summaryRemaining <= 0;
+  const canGenerateSummary = Boolean(allBounds) && !summaryLocked;
   const canGenerate = kind === 'full' ? canGenerateFull : canGenerateSummary;
+  const offerUpgrade =
+    kind === 'summary' && Boolean(allBounds) && summaryLocked && purchasesAvailable;
+
+  async function upgrade() {
+    try {
+      await showPaywall();
+    } catch (e) {
+      console.error('ペイウォールの表示に失敗', e);
+      setError('購入画面を開けませんでした。時間をおいてもう一度お試しください。');
+    }
+  }
 
   async function generate() {
     if (generating || !canGenerate) return;
@@ -152,11 +167,15 @@ export default function NewBookScreen() {
             ? '読み込み中…'
             : !allBounds
               ? 'まだ記録がありません'
-              : summaryRemaining > 0
-                ? `ハイライトだけを抜き出した短い本（今月あと${summaryRemaining}回作成できます）`
-                : '今月の出力回数を使い切りました。来月また作成できます。'
+              : isPremium
+                ? 'ハイライトだけを抜き出した短い本（プレミアム：何度でも作成できます）'
+                : summaryRemaining > 0
+                  ? `ハイライトだけを抜き出した短い本（今月あと${summaryRemaining}回作成できます）`
+                  : purchasesAvailable
+                    ? '今月の無料分を使い切りました。プレミアムなら何度でも作成できます。'
+                    : '今月の出力回数を使い切りました。来月また作成できます。'
         }
-        disabled={!loadingInfo && !canGenerateSummary}
+        disabled={!loadingInfo && !allBounds}
       />
 
       <ThemedText type="small" themeColor="textSecondary" style={styles.note}>
@@ -171,11 +190,15 @@ export default function NewBookScreen() {
         </ThemedText>
       )}
 
-      <Button
-        label={kind === 'full' ? 'この内容で全文版を作る' : 'この内容で要約版を作る'}
-        onPress={generate}
-        disabled={loadingInfo || !canGenerate}
-      />
+      {offerUpgrade ? (
+        <Button label="プレミアムで要約版を作り放題にする" onPress={upgrade} />
+      ) : (
+        <Button
+          label={kind === 'full' ? 'この内容で全文版を作る' : 'この内容で要約版を作る'}
+          onPress={generate}
+          disabled={loadingInfo || !canGenerate}
+        />
+      )}
     </Screen>
   );
 }

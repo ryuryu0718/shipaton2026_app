@@ -9,6 +9,7 @@ import { BottomTabInset, Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { useAuth } from '@/lib/auth';
 import { useOnboarding } from '@/lib/onboarding';
+import { usePurchases } from '@/lib/purchases';
 import { resetDb } from '@/lib/db';
 
 const PRIVACY_URL = 'https://ryuryu0718.github.io/shipaton2026_app/privacy-policy';
@@ -18,9 +19,33 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { status, email, signOut, isSupabaseConfigured } = useAuth();
   const { reset: resetOnboarding } = useOnboarding();
+  const purchases = usePurchases();
 
-  const accountLabel =
-    status === 'guest'
+  async function openPaywall() {
+    try {
+      await purchases.showPaywall();
+    } catch (e) {
+      console.error('ペイウォールの表示に失敗', e);
+      Alert.alert('購入画面を開けませんでした', '時間をおいてもう一度お試しください。');
+    }
+  }
+
+  async function restorePurchases() {
+    try {
+      const premium = await purchases.restore();
+      Alert.alert(
+        premium ? '購入を復元しました' : '復元できる購入が見つかりませんでした',
+        premium ? 'プレミアムをご利用いただけます。' : undefined,
+      );
+    } catch (e) {
+      console.error('購入の復元に失敗', e);
+      Alert.alert('購入を復元できませんでした', '時間をおいてもう一度お試しください。');
+    }
+  }
+
+  const accountLabel = !isSupabaseConfigured
+    ? '日記はこの端末に保存しています'
+    : status === 'guest'
       ? 'ゲスト（この端末のみ）'
       : email ?? (status === 'signedIn' ? 'サインイン済み' : '未サインイン');
 
@@ -32,14 +57,15 @@ export default function SettingsScreen() {
 
       <Section title="アカウント">
         <Row icon="person.crop.circle" label={accountLabel} />
-        {status === 'guest' && (
+        {/* Supabase 未設定（V1）ではアカウント機能を出さない。設定すれば自動で戻る。 */}
+        {isSupabaseConfigured && status === 'guest' && (
           <Row
             icon="apple.logo"
             label="Sign in with Apple でバックアップに備える"
             onPress={() => router.replace('/sign-in')}
           />
         )}
-        {status !== 'signedOut' && (
+        {isSupabaseConfigured && status !== 'signedOut' && (
           <Row
             icon="rectangle.portrait.and.arrow.right"
             label="サインアウト"
@@ -63,7 +89,23 @@ export default function SettingsScreen() {
       </Section>
 
       <Section title="プラン">
-        <Row icon="star" label="サブスクリプション（準備中）" />
+        {!purchases.isAvailable ? (
+          <Row icon="star" label="無料プラン" />
+        ) : purchases.isPremium ? (
+          <>
+            <Row icon="star.fill" label="プレミアム（ご利用中）" />
+            <Row
+              icon="creditcard"
+              label="サブスクリプションを管理"
+              onPress={() => purchases.manageSubscription().catch(() => {})}
+            />
+          </>
+        ) : (
+          <>
+            <Row icon="star" label="プレミアムにアップグレード" onPress={openPaywall} />
+            <Row icon="arrow.clockwise" label="購入を復元" onPress={restorePurchases} />
+          </>
+        )}
       </Section>
 
       <Section title="規約">

@@ -20,6 +20,13 @@ Shipaton 2026 提出アプリ。企画の全体像は `docs/shipaton_2026_projec
   将来のバックアップ同期のみ。`.env` 未設定でもアプリはローカル専用モードで完全に動く。
 - **認証**（`src/lib/auth.tsx`）: V1 は Sign in with Apple のみ。Supabase 未設定や
   Apple 認証不可の環境（Expo Go / シミュレータ）では「ゲストモード」で端末内に閉じて利用可。
+  **V1 の提出は Sign in with Apple を隠してローカル専用**（2026-09-28 決定）。Supabase 未設定時は
+  サインイン画面を出さずゲストで開始し、設定画面のアカウント操作も非表示。コードは残してあり、
+  `.env` に Supabase を設定すれば自動で復活する。**いずれ戻す予定**。戻すときは App Store 審査要件の
+  アプリ内アカウント削除（+ Apple トークン失効）も同時に実装すること。
+- **課金**（`src/lib/purchases.tsx`）: RevenueCat。エンタイトルメント `premium`、ペイウォールは
+  ダッシュボードの default Offering（Paywalls V2 を `RevenueCatUI.presentPaywall()` で表示）。
+  プレミアム = 要約版の出力無制限。`EXPO_PUBLIC_REVENUECAT_IOS_KEY` 未設定なら全員無料プランで動く。
 - **写真**（`src/lib/media.ts`）: ピッカーの URI は `Paths.document/media/` へコピーして永続化。
   本の PDF 生成時は `File.base64()` で data URI 化して埋め込む（remote_url があればそちら優先）。
 - **テーマ**（`src/constants/theme.ts`）: 紙のようなウォームオフホワイト + テラコッタ。
@@ -58,7 +65,8 @@ src/
    [book/[id].tsx](src/app/book/[id].tsx) で WebView による PDF ビューア + 共有/AirPrint。
    要約版のハイライト抽出は AI ではなくルールベースの暫定版（[src/lib/summary.ts](src/lib/summary.ts) 参照、将来 API に差し替え）。
    **react-native-webview / expo-sharing はネイティブモジュールなので EAS の開発ビルドを再作成しないと実機に反映されない。**）
-5. 課金（RevenueCat / Paywalls V2 / コンテクスチュアル表示）
+5. 課金（RevenueCat / Paywalls V2 / コンテクスチュアル表示）— アプリ側は実装済み（要約版の上限到達時と
+   設定画面からペイウォール、購入の復元、サブスク管理）。App Store Connect / RevenueCat の設定と実機検証が残り
 6. ストア素材・プライバシーポリシー公開・EAS Build・審査
 
 ## EAS / 実機

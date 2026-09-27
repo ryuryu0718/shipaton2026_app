@@ -76,7 +76,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         unsub = () => sub.data.subscription.unsubscribe();
         if (!hadSession) await resolveGuestOrSignedOut();
       } else {
-        await resolveGuestOrSignedOut();
+        // V1 はローカル専用で提出するため、Supabase 未設定時はサインイン画面を出さずに
+        // ゲストで始める（Sign in with Apple はバックアップ同期と一緒に後日復活させる）。
+        setStatus('guest');
       }
     })();
 

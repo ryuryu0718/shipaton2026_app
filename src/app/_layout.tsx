@@ -15,6 +15,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Colors } from '@/constants/theme';
 import { AuthProvider, useAuth } from '@/lib/auth';
 import { OnboardingProvider, useOnboarding } from '@/lib/onboarding';
+import { PurchasesProvider } from '@/lib/purchases';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,7 +24,9 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
         <OnboardingProvider>
-          <ThemedRoot />
+          <PurchasesProvider>
+            <ThemedRoot />
+          </PurchasesProvider>
         </OnboardingProvider>
       </AuthProvider>
     </GestureHandlerRootView>
